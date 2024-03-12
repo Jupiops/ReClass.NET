@@ -37,6 +37,8 @@ jobs:
 
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v2
+      with:
+        msbuild-architecture: x64
 
     - name: Restore NuGet packages
       working-directory: ${{env.GITHUB_WORKSPACE}}
@@ -48,9 +50,9 @@ jobs:
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
       run: msbuild /m /p:Platform=${{env.PLATFORM}} /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}
 
-    # - name: Upload Artifact
-    #   uses: actions/upload-artifact@v4
-    #   with:
-    #     name: ReClass.NET
-    #     path: D:/a/**.exe
-    #     compression-level: 9
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: ReClass.NET
+        path: D:/a/ReClass.NET/ReClass.NET/bin/Release/*
+        compression-level: 9
